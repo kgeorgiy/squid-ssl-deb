@@ -1,0 +1,23 @@
+diff -Naur debian/control debian/control
+--- debian/control	2020-02-25 21:37:55.000000000 +0300
++++ debian/control	2021-04-10 17:33:02.544063937 +0300
+@@ -27,6 +27,7 @@
+ 	, libsasl2-dev
+ 	, libxml2-dev
+ 	, nettle-dev
++        , libssl-dev
+ 
+ Package: squid
+ Architecture: any
+diff -Naur debian/rules debian/rules
+--- debian/rules	2020-02-25 21:37:55.000000000 +0300
++++ debian/rules	2021-04-10 16:22:44.781714757 +0300
+@@ -60,6 +60,8 @@
+ 		--enable-icmp \
+ 		--enable-zph-qos \
+ 		--enable-ecap \
++		--enable-ssl \
++		--with-openssl \
+ 		--disable-translation \
+ 		--with-swapdir=/var/spool/squid \
+ 		--with-logdir=/var/log/squid \

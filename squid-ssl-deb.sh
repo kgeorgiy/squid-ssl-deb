@@ -31,7 +31,7 @@ pushd "$(find squid* -maxdepth 0 -type d)"
 
 version="$(head -1 debian/changelog | sed -E "s/^.*\(([[:alnum:]:.~-]+)\).*$/\1+ssl/; t; q1")"
 version_file="../../squid-$release.versions/$version" || error "Malformed header"
-if [[ -f "2$version_file" ]]; then
+if [[ -f "$version_file" ]]; then
   echo "Already uploaded $release $version"
   exit
 fi

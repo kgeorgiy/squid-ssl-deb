@@ -26,12 +26,13 @@ dir="__build/squid-$release"
 mkdir -p "$dir"
 pushd "$dir"
 
-pull-lp-source squid "$release"
+pull-lp-source squid "$release" 2>&1
 pushd "$(find squid* -maxdepth 0 -type d)"
 
-version_file="../../squid-$release.versions/$(head -1 debian/changelog | sed -E "s/^.*\(([[:alnum:]:.~-]+)\).*$/\1+ssl/; t; q1")" || error "Malformed header"
-if [[ -f "$version_file" ]]; then
-  echo "Already uploaded"
+version="$(head -1 debian/changelog | sed -E "s/^.*\(([[:alnum:]:.~-]+)\).*$/\1+ssl/; t; q1")"
+version_file="../../squid-$release.versions/$version" || error "Malformed header"
+if [[ -f "2$version_file" ]]; then
+  echo "Already uploaded $release $version"
   exit
 fi
 
@@ -52,10 +53,11 @@ head debian/changelog
 
 debuild -S -d --lintian-opts --no-lintian
 
-dput ppa:kgeorgiy/squid-ssl ../squid*+ssl_source.changes
+dput ppa:kgeorgiy/squid-ssl ../squid*+ssl_source.changes 2>&1
 
-mkdir "$(dirname "$version_file")"
+mkdir -p "$(dirname "$version_file")"
 touch "$version_file"
 
 popd
 popd
+

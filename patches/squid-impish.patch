@@ -1,0 +1,12 @@
+diff -Naur debian/rules debian/rules
+--- debian/rules	2020-02-25 21:37:55.000000000 +0300
++++ debian/rules	2021-04-10 16:22:44.781714757 +0300
+@@ -49,6 +49,8 @@
+ 		--enable-icmp \
+ 		--enable-zph-qos \
+ 		--enable-ecap \
++		--enable-ssl \
++		--with-openssl \
+ 		--disable-translation \
+ 		--with-swapdir=/var/spool/squid \
+ 		--with-logdir=/var/log/squid \
